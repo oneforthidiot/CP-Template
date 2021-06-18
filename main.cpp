@@ -18,7 +18,18 @@ const ll int MX=1e9+7;
 /*Code Begins from Here*/
 
 // ll int dp[5001][5001];
-// const ll int N=1e6+1;
+const ll int N=1e6+1;
+
+bool prime[N];
+void seive(){
+    memset(prime,true,sizeof(prime));
+    for(int i=2;i<N;i++){
+        if(prime[i]){
+            for(int j=i+i;j<N;j+=i)
+                prime[j]=false;
+        }
+    }
+}
 
 ll binpow(ll a, ll b, ll m) {
     a %= m;
