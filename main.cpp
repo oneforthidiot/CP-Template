@@ -51,6 +51,25 @@ void decToBinary(ll n){
     }
 }
 
+// To Make a Number as Sum of power of 2s
+vector<int> powerSetof2(ll n,ll k){
+    ll int x=__builtin_popcount(n);
+    // if(k<x || k>n) Not Possible in this Condition
+    ll int val=31;
+    vector<int> ans;
+    while(val>=0 && k){
+        ll int num=pow(2,val);
+        if(n-num<k-1){
+            --val;
+            continue;
+        }
+        --k;
+        n-=num;
+        ans.push_back(val);
+    }
+    return ans;
+}
+
 void solve(){
 
  
