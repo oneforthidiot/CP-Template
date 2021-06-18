@@ -18,7 +18,19 @@ const ll int MX=1e9+7;
 /*Code Begins from Here*/
 
 // ll int dp[5001][5001];
-const ll int N=1e6+1;
+// const ll int N=1e6+1;
+
+ll binpow(ll a, ll b, ll m) {
+    a %= m;
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
 
 void decToBinary(ll n){
     for(int i= 10;i>=0;i--){
