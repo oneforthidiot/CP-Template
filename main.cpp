@@ -70,6 +70,21 @@ vector<int> powerSetof2(ll n,ll k){
     return ans;
 }
 
+// To find all the divisor of a Number
+vector<int> Divisor(ll n){
+    set<ll> temp;
+    for(int i=1;i<sqrt(n);;i++){
+        if(n%i==0)temp.insert(i);
+        else{
+            temp.insert(i);
+            temp.insert(n/i);
+        }
+    }
+    vector<int> ans;
+    for(auto i:temp)ans.push_back(i);
+    return ans;
+}
+
 void solve(){
 
  
