@@ -14,48 +14,38 @@ const ll int MX=1e9+7;
 
 /*Code Begins From Here*/
 
-void merge(vi &arr,ll int low, ll int mid, ll int high){
-    ll int n1=mid-low+1;
-    ll int n2=high-mid;
-    vi left(n1),right(n2);
-    for(int i=0;i<n1;i++){
-        left[i]=arr[low+i];
-    }
-    for(int i=0;i<n2;i++){
-        right[i]=arr[mid+i+1];
-    }
-    ll int i=0,j=0,k=low;
-    while(i<n1 && j<n2){
-        if(left[i]<=right[j]){
-            arr[k++]=left[i++];
+void merge(ll int arr[],ll int temp[],ll int low, ll int mid, ll int high){
+    int i=low,j=mid,k=low;
+    while((i<mid) and (j<=high)){
+        if(arr[i]<=arr[j]){
+            temp[k++]=arr[i++];
         }
         else{
-            arr[k++]=right[j++];
+            temp[k++]=arr[j++];
         }
     }
-    while(i<n1){
-        arr[k++]=left[i++];
-    }
-    while(j<n2){
-        arr[k++]=right[j++];
-    }
+    while(i<mid)temp[k++]=arr[i++];
+    while(j<=high)temp[k++]=arr[j++];
+    for(int i=low;i<=high;i++)arr[i]=temp[i];
 }
 
-void mergesort(vi &arr,ll int low,ll int high){
+void mergesort(ll int arr[],ll int temp[],ll int low,ll int high){
     if(low>=high)return;
     ll int mid=low+(high-low)/2;
-    mergesort(arr,low,mid);
-    mergesort(arr,mid+1,high);
-    merge(arr,low,mid,high);
+    mergesort(arr,temp,low,mid);
+    mergesort(arr,temp,mid+1,high);
+    merge(arr,temp,low,mid+1,high);
 }
 
 void solve(){
    
     ll int n;
     cin>>n;
-    vi arr(n);
-    mergesort(arr,0,n-1);
-    show(arr)cout<<line;
+    ll int arr[n];
+    ll int temp[n];
+    for(int i=0;i<n;i++)cin>>arr[i];
+    mergesort(arr,temp,0,n-1);
+    show(temp)cout<<line;
 
 }
 
