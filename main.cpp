@@ -20,6 +20,23 @@ const ll int MX=1e9+7;
 // ll int dp[5001][5001];
 const ll int N=1e6+1;
 
+// Fenwick Tree Structure
+// range_add(l,r,value);
+// point_query(idx);
+struct fenwick_tree{
+    vector<int> bit;
+    int n;
+    fenwick_tree(int n){this->n = n+1; bit.assign(n+1,0);}
+    void add(int idx, int val) { for(++idx; idx<n; idx += idx & -idx) bit[idx] += val; }
+    void range_add(int l, int r, int val) { add(l,val); add(r+1, -val); }
+    int point_query(int idx){
+        int ret = 0;
+        for(++idx; idx>0; idx -= idx & -idx) ret += bit[idx];
+        return ret;
+    }
+};
+
+
 bool prime[N];
 void seive(){
     memset(prime,true,sizeof(prime));
