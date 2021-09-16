@@ -59,6 +59,15 @@ ll binpow(ll a, ll b, ll m) {
     }
     return res;
 }
+// To Find Modular Inverse. To find modulo inverse a and b must be coprime (gcd(a,b)==1)
+// If M is Prime then use b=binpow(a,m-2,m);
+// else use :
+// for(int i=1;i<m;i++){
+//     if(((a%m)*(i%m))%m==1){
+//        return i;
+//      }
+//   }
+//   return -1
 
 void decToBinary(ll n){
     for(int i= 10;i>=0;i--){
