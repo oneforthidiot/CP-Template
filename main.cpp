@@ -1,5 +1,4 @@
-// Those who don't Remember the History 
-// are Destined to Repeat it.  ~DP
+// Those who don't Remember the History are Destined to Repeat it.  ~DP
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -107,7 +106,8 @@ vector<int> Divisor(ll n){
         }
     }
     vector<int> ans;
-    for(auto i:temp)ans.push_back(i);
+    for(auto i:temp)
+    ans.push_back(i);
     return ans;
 }
 
@@ -115,6 +115,7 @@ void solve(){
 
  
     
+
 }
 
 int main() {
@@ -122,7 +123,8 @@ int main() {
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
     ll int t=1;
     cin>>t;
-    while(t--){
+    while(t--)
+    {
         solve();
     }
     return 0;
