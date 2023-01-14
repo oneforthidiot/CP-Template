@@ -111,6 +111,44 @@ vector<int> Divisor(ll n){
     return ans;
 }
 
+// Union Find Temeplate
+// make -> makes a set
+// find -> finds the parent in set
+// Union -> Points one set to another (Comparing the Sizes)
+
+ll parent[X];
+multiset<ll> sizes;
+ll int size[X];
+
+void make(ll i){
+    parent[i]=i;
+    size[i]=1;
+    sizes.insert(1);
+}
+
+ll find(ll i){
+    if(parent[i]==i)return i;
+    return parent[i]=find(parent[i]);
+}
+
+void merge(ll a,ll b){
+    sizes.erase(sizes.find(size[a]));
+    sizes.erase(sizes.find(size[b]));
+    sizes.insert(size[a]+size[b]);
+
+}
+void Union(ll a,ll b){
+    a=find(a);
+    b=find(b);
+    if(a!=b){
+        if(size[a]<size[b])swap(a,b);
+        parent[b]=a;
+        merge(a,b);
+        size[a]+=size[b];
+    }
+}
+// Union Find End
+
 void solve(){
 
  
