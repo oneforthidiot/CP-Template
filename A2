@@ -1,0 +1,203 @@
+
+// Q1 Roatated Array Search
+int pivot(int arr[],int n){
+    int l=0,r=n-1;
+    while(l<r){
+        int mid=(l+r)/2;
+        if(arr[mid]<arr[l] and arr[mid]<arr[r]){
+            return mid;
+        }
+        if(arr[mid]>arr[r]){
+            l=mid+1;
+        }
+        else{
+            r=mid-1;
+        }
+    }
+    return l;
+
+}
+int binarysearch(int arr[],int l, int r,int x){
+    while(l<r){
+        int mid=(l+r)/2;
+        if(arr[mid]==x)return mid;
+        if(arr[mid]>x){
+            r=mid-1;
+        }
+        else{
+            l=mid+1;
+        }
+    }
+    return -1;
+}
+void solve(){
+    //searching in sorted and rotated array
+    int n,k;
+    cin>>n>>k;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    int pvt=pivot(arr,n);
+    int idx1=binarysearch(arr,0,pvt,k);
+    int idx2=binarysearch(arr,pvt+1,n-1,k);
+    if(idx1==-1 and idx2==-1){
+        cout<<-1<<endl;
+    }
+    else
+    if(idx1==-1)cout<<idx2<<endl;
+    else cout<<idx1<<endl;
+} 
+
+// Q2 (Difference of pair equal to X)
+void solve(){
+    // pair with diff k
+    int n,k;
+    cin>>n>>k;
+    int arr[n];
+    map<int,int> mp;
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+        mp[arr[i]]=i;
+    }
+    for(int i=0;i<n;i++){
+        int x=k+arr[i];
+        if(mp.find(x)!=mp.end()){
+            cout<<arr[i]<<" "<<x<<endl;
+            return;
+        }
+    }
+    cout<<"-1"<<endl;
+}
+
+// Q3 Binary Search on ans 
+bool helper(ll arr[],ll mid,ll m,ll n){
+    ll sum=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]<=mid)continue;
+        sum+=(arr[i]-mid);
+    }
+    return sum>=m;
+}
+void solve(){
+    // Chocoalates Question
+    ll n,m;
+    cin>>n>>m;
+    ll arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    ll l=0,r=1e9;
+    ll ans=-1;
+    while(l<r){
+        ll mid=(l+r)/2;
+        if(helper(arr,mid,m,n)){
+            ans=mid;
+            l=mid+1;
+        }
+        else{
+            r=mid-1;
+        }
+    }
+    cout<<ans<<line;
+} 
+
+// Q4 Square root of a number
+ll sqareroot(ll x){
+    ll l=0,r=1e9;
+    while(l<r){
+        ll mid=(l+r)/2;
+        if(mid*mid==x)return mid;
+        if(mid*mid>x){
+            r=mid-1;
+        }
+        else{
+            l=mid+1;
+        }
+    }
+    return l;  
+}
+void solve(){
+    // Square root of a number
+    ll int n;
+    cin>>n;
+    ll ans=sqareroot(n);
+    cout<<ans<<endl;
+
+}  
+
+// Q5 Interpoliation Search Implementation
+
+int interpoliationsearch(int arr[],int x,int lo,int hi){
+    if(lo>=hi)return -1;
+    if(x<arr[lo] or x>arr[hi])return -1;
+    int idx=lo+(int)(double(hi-lo)/double(arr[hi]-arr[lo]))*(x-arr[lo]);
+    if(arr[idx]==x)return idx;
+    if(arr[idx]>x){
+        return interpoliationsearch(arr,x,lo,idx-1);
+    }
+    else{
+        return interpoliationsearch(arr,x,idx+1,hi);
+    }
+}
+
+// Q7 LPS of a String
+void solve(){
+    // Longest Proper Prefix of a Suffix
+    string str;
+    cin>>str;
+    int n=str.length();
+    vector<int> lps(n);
+    int i=1,len=0;
+    while(i<n){
+        if(str[i]==str[len]){
+            lps[i]=len+1;
+            len++;
+            i++;
+        }
+        else{
+            if(len==0){
+                lps[i]=0;
+                i++;
+            }
+            else{
+                len=lps[len-1];
+            }
+        }
+    }
+    for(auto it:lps){
+        cout<<it<<" ";
+    }
+    cout<<endl;
+}
+
+// Q6 Set Entire row and matrix to zero
+void solve(){
+    // set entire row and coloum to zero
+    int n,m;
+    cin>>n>>m;
+    vector<int> row(n),col(m);
+    int mat[n+1][m+1];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>mat[i][j];
+            if(mat[i][j]==1){
+                row[i]=1;
+                col[j]=1;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(row[i] or col[j]){
+                cout<<0<<" ";
+            }
+            else{
+                cout<<mat[i][j]<<" ";
+            }
+        }
+        cout<<endl;
+    }
+} 
+
+// Q5 Fibonacci Search
