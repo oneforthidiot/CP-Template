@@ -1,0 +1,52 @@
+vector<string> ans;
+    bool flag=false;
+    int vis[201][201];
+    bool isValid(vector<vector<char>> &board,char ch,int i,int j){
+        int n=board.size();
+        int m=board[0].size();
+        if(i<0 or j<0 or i>=n or j>=m or board[i][j]!=ch)return false;
+        return true;
+    }
+    void dfs(vector<vector<char>> &board,string &str,int idx,int i,int j){
+        if(!isValid(board,str[idx],i,j) or vis[i][j])return;
+        if(idx==str.length()-1){
+            // ans.push_back(str);
+            // cout<<"CHK "<<str[0]<<" "<<idx<<endl;
+            flag=true;
+            return;
+        }
+        //dfs calls
+        vis[i][j]=1;
+        dfs(board,str,idx+1,i+1,j);
+        dfs(board,str,idx+1,i-1,j);
+        dfs(board,str,idx+1,i,j+1);
+        dfs(board,str,idx+1,i,j-1);
+        dfs(board,str,idx+1,i+1,j+1);
+        dfs(board,str,idx+1,i+1,j-1);
+        dfs(board,str,idx+1,i-1,j+1);
+        dfs(board,str,idx+1,i-1,j-1);
+        vis[i][j]=0;
+    }
+	vector<string> wordBoggle(vector<vector<char> >& board, vector<string>& dictionary) {
+	    int n=board.size();
+	    int m=board[0].size();
+	    set<string> st;
+	    for(auto it:dictionary){
+	        for(int i=0;i<n;i++){
+	            for(int j=0;j<m;j++){
+	                if(board[i][j]==it[0]){
+	                    memset(vis,0,sizeof(vis));
+	                    flag=false;
+	                    dfs(board,it,0,i,j);
+	                    if(flag){
+	                        st.insert(it);
+	                        break;
+	                    }
+	                   //cout<<board[i][j]<<endl;
+	                }
+	            }
+	        }
+	    }
+	    for(auto it:st)ans.push_back(it);
+	    return ans;
+	}
