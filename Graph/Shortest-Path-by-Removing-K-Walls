@@ -1,0 +1,38 @@
+bool isValid(int i,int j,int n,int m){
+        if(i<0 or j<0 or i>=n or j>=m)return 0;
+        return 1;
+    }
+    vector<pair<int,int>> dir={{1,0},{0,1},{-1,0},{0,-1}};
+    int shotestPath(vector<vector<int>> mat, int n, int m, int k) {
+        int vis[n+1][m+1];
+        memset(vis,-1,sizeof(vis));
+        queue<pair<pair<int,int>,pair<int,int>>> qt;
+        qt.push({{0,0},{0,k}});
+        while(!qt.empty()){
+            pair<pair<int,int>,pair<int,int>> ft=qt.front();
+            qt.pop();
+            int x=ft.first.first;
+            int y=ft.first.second;
+            int k1=ft.second.second;
+            int d=ft.second.first;
+            if(x==n-1 and y==m-1){
+                return d;
+            }
+            if(mat[x][y]==1){
+                if(k1){
+                    k1--;
+                }
+                else continue;
+            }
+            for(auto &it:dir){
+                int i=x+it.first;
+                int j=y+it.second;
+                if(isValid(i,j,n,m) and vis[i][j]<k1){
+                    vis[i][j]=k1;
+                    qt.push({{i,j},{d+1,k1}});
+                }
+            }
+            
+        }
+        return -1;
+    }
