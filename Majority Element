@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        // make use of extended moore voting algorithm
+        int c1=0,c2=0;
+        int e1=0,e2=0;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(c1==0 and nums[i]!=e2){
+                c1=1;
+                e1=nums[i];
+            }
+            else
+            if(c2==0 and nums[i]!=e1){
+                c2=1;
+                e2=nums[i];
+            }
+            else
+            if(nums[i]==e1)c1++;
+            else
+            if(nums[i]==e2)c2++;
+            else{
+                c1--;
+                c2--;
+            }
+        }
+        int cnt1=0,cnt2=0;
+        for(auto it:nums){
+            if(it==e1)cnt1++;
+            if(it==e2)cnt2++;
+        }
+        vector<int> ans;
+        if(cnt1>=(n/3)+1)ans.push_back(e1);
+        if(cnt2>=(n/3)+1)ans.push_back(e2);
+        if(ans.size()==2 and ans[0]==ans[1]){
+            return {e1};
+        }
+        return ans;
+    }
+};
